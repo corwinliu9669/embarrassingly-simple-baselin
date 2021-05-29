@@ -60,7 +60,7 @@ class miniImageNet_pretrain_dataset(Dataset):
         return sample
 
 
-dataTrain = miniImageNet_pretrain_dataset(pickle_file = '/root/XCM/miniimagenet_pickle/miniImageNet_category_split_train_phase_train.pickle', split='train')
+dataTrain = miniImageNet_pretrain_dataset(pickle_file = '/home/liuchen/miniimagenet_pickle/miniImageNet_category_split_train_phase_train.pickle', split='train')
 dataloader_train = torch.utils.data.DataLoader(dataTrain, batch_size=32, shuffle=True, num_workers=4)
-dataVal = miniImageNet_pretrain_dataset(pickle_file = '/root/XCM/miniimagenet_pickle/miniImageNet_category_split_train_phase_val.pickle', split='val')
+dataVal = miniImageNet_pretrain_dataset(pickle_file = '/home/liuchen/miniimagenet_pickle/miniImageNet_category_split_train_phase_val.pickle', split='val')
 dataloader_val = torch.utils.data.DataLoader(dataVal, batch_size=32, shuffle=False, num_workers=4)

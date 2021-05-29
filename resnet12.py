@@ -170,17 +170,17 @@ class ResNet(nn.Module):
 
         return nn.Sequential(*layers)
 
-    def forward(self, x,return_feat=False, return_both=False, return_map=False):
+    def forward(self, x,  meta_test=False, pretrain=False):
   #      x = self.bn1(self.relu(self.conv1(x)))
         x1 = self.layer1(x)
         x2 = self.layer2(x1)
         x3 = self.layer3(x2)
         x4 = self.layer4(x3) 
-        if self.meta_test:
+        if meta_test:
             x = self.avgpool(x4)
             x = x.view(x.size(0), -1)
             return x
-        if self.pretrain:
+        if pretrain:
             x = self.avgpool(x4)
             x = x.view(x.size(0), -1)
             result = self.fc(x)

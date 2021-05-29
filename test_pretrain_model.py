@@ -57,9 +57,9 @@ def val_nn(model, loader):
         data = data.cuda()
         k = 5 *1
         data_shot, data_query = data[:k], data[k:]
-        x = model(data_shot)
+        x = model(data_shot, meta_test=True)
         x = x.squeeze().detach().cpu() 
-        x_test = model(data_query)
+        x_test = model(data_query, meta_test=True)
         x_test = x_test.squeeze().detach().cpu()
         x_n = x 
         x_n = x_n.reshape(1, 5, -1).mean(dim=0)
@@ -83,9 +83,9 @@ def val_lr(model, dataloader):
         data = data.cuda()
         k = 5 *1
         data_shot, data_query = data[:k], data[k:]
-        x = model(data_shot)
+        x = model(data_shot, meta_test=True)
         x = x.squeeze().detach().cpu() 
-        x_test = model(data_query)
+        x_test = model(data_query, meta_test=True)
         x_test = x_test.squeeze().detach().cpu()
         x_n = x 
         x_n = x_n.reshape(1, 5, -1).mean(dim=0)
@@ -113,9 +113,9 @@ def val_svm(model, dataloader):
         data = data.cuda()
         k = 5 *1
         data_shot, data_query = data[:k], data[k:]
-        x = model(data_shot)
+        x = model(data_shot, meta_test=True)
         x = x.squeeze().detach().cpu() 
-        x_test = model(data_query)
+        x_test = model(data_query, meta_test=True)
         x_test = x_test.squeeze().detach().cpu()
         x_n = x 
         x_n = x_n.reshape(1, 5, -1).mean(dim=0)
