@@ -61,10 +61,10 @@ def val_nn(model, loader):
         x = x.squeeze().detach().cpu() 
         x_test = model(data_query, meta_test=True)
         x_test = x_test.squeeze().detach().cpu()
-        x_n = x 
+        x_n = x/ torch.norm(x, p=2,dim=1, keepdim=True)
         x_n = x_n.reshape(1, 5, -1).mean(dim=0)
         p = x_n
-        x_test_n = x_test
+        x_test_n = x_test/ torch.norm(x_test, p=2,dim=1, keepdim=True)
         logits = euclidean_metric(x_test_n , p)
         label = torch.arange(5).repeat(15)
         label = label.type(torch.LongTensor)
@@ -87,14 +87,14 @@ def val_lr(model, dataloader):
         x = x.squeeze().detach().cpu() 
         x_test = model(data_query, meta_test=True)
         x_test = x_test.squeeze().detach().cpu()
-        x_n = x 
+        x_n = x / torch.norm(x, p=2,dim=1, keepdim=True)
         x_n = x_n.reshape(1, 5, -1).mean(dim=0)
         train_targets =  torch.arange(5).repeat(1).type(torch.cuda.LongTensor)
         train_targets = train_targets.cpu().detach().numpy()
         head.fit(x_n, train_targets)
         test_targets = torch.arange(5).repeat(15).type(torch.cuda.LongTensor)
         test_targets = test_targets.cpu().detach().numpy()
-        x_test_n = x_test
+        x_test_n = x_test/ torch.norm(x_test, p=2,dim=1, keepdim=True)
         test_pred = head.predict(x_test_n)
         acc = np.mean(test_pred == test_targets)
         acc_list.append(acc)
@@ -117,14 +117,14 @@ def val_svm(model, dataloader):
         x = x.squeeze().detach().cpu() 
         x_test = model(data_query, meta_test=True)
         x_test = x_test.squeeze().detach().cpu()
-        x_n = x 
+        x_n = x / torch.norm(x, p=2,dim=1, keepdim=True)
         x_n = x_n.reshape(1, 5, -1).mean(dim=0)
         train_targets = torch.arange(5).repeat(1).type(torch.cuda.LongTensor)
         train_targets = train_targets.cpu().detach().numpy()
         head.fit(x_n, train_targets)
         test_targets = torch.arange(5).repeat(15).type(torch.cuda.LongTensor)
         test_targets = test_targets.cpu().detach().numpy()
-        x_test_n = x_test 
+        x_test_n = x_test / torch.norm(x_test, p=2,dim=1, keepdim=True)
         test_pred = head.predict(x_test_n)
         acc = np.mean(test_pred == test_targets)
         acc_list.append(acc)
