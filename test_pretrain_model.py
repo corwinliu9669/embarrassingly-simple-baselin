@@ -90,7 +90,7 @@ def val_lr(model, dataloader):
         x_n = x 
         x_n = x_n.reshape(1, 5, -1).mean(dim=0)
         train_targets =  torch.arange(5).repeat(1).type(torch.cuda.LongTensor)
-        train_targets = train_targets.cpu().detach().numpy())
+        train_targets = train_targets.cpu().detach().numpy()
         head.fit(x_n, train_targets)
         test_targets = torch.arange(5).repeat(15).type(torch.cuda.LongTensor)
         test_targets = test_targets.cpu().detach().numpy()
